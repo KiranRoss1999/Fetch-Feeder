@@ -11,7 +11,7 @@ MealLog.init(
         primaryKey: true,
         autoIncrement: true,
         },
-    Food: {
+    food: {
         type: DataTypes.STRING,
         allowNull: false,
         },
