@@ -20,11 +20,11 @@ MealLog.init(
         allowNull: false,
     },
     date_time: {
-        tyoe: DataTypes.DATE,
+        type: DataTypes.DATE,
         allowNull: false,
     },
     dog_id: {
-        tyoe: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'dog',

@@ -20,11 +20,11 @@ Dog.init(
         allowNull: false,
     },
     calorie_target: {
-        tyoe: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     user_id: {
-        tyoe: DataTypes.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'user',
