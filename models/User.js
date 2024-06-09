@@ -20,14 +20,31 @@ User.init(
         type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-          isEmail: true,
-        },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+        // Experimental code to validate unique, I want to test it before going implementing Evrett Godfery
+        // async isUnique(value, next) {
+        //   try {
+        //     const user = await User.findOne({
+        //       where: {
+        //         email: value,
+        //         id: { [Op.ne]: this.id } // Exclude current user in case of update
+        //       }
+        //     });
+        //     if (user) {
+        //       return next('Email address already in use!');
+        //     }
+        //     next();
+        //   } catch (error) {
+        //     next(error);
+        //   }
+        // }
       },
+    },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
