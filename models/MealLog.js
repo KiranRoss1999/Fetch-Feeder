@@ -19,10 +19,6 @@ MealLog.init(
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    date_time: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
     dog_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
