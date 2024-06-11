@@ -1,0 +1,52 @@
+[
+  {
+    "food": "kibble",
+    "calorie": 1200,
+    "dog_id": 1
+  },
+  {
+    "food": "kibble",
+    "calorie": 1100,
+    "dog_id": 1
+  },
+  {
+    "food": "kibble",
+    "calorie": 1200,
+    "dog_id": 1
+  },
+  {
+    "food": "kibble",
+    "calorie": 80,
+    "dog_id": 2
+  },
+  {
+    "food": "snack",
+    "calorie": 80,
+    "dog_id": 2
+  },
+  {
+    "food": "kibble",
+    "calorie": 720,
+    "dog_id": 2
+  },
+  {
+    "food": "kibble",
+    "calorie": 1100,
+    "dog_id": 3
+  },
+  {
+    "food": "treat",
+    "calorie": 200,
+    "dog_id": 3
+  },
+  {
+    "food": "kibble",
+    "calorie": 1100,
+    "dog_id": 3
+  },
+  {
+    "food": "snack",
+    "calorie": 320,
+    "dog_id": 3
+  }
+]

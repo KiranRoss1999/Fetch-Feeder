@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run watch:tailwind\" \"nodemon server.js\"",
     "start": "node server.js",
-    "seed": "node seeds/seed.js"
+    "seed": "node seeds/index.js",
+    "tailwind:css": "postcss public/css/tailwind.css -o public/css/style.css",
+    "watch:tailwind": "postcss public/css/tailwind.css -o public/css/style.css --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.3",
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.4",
     "dotenv": "^8.2.0",
@@ -19,5 +26,9 @@
     "express-session": "^1.17.1",
     "pg": "^8.11.3",
     "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.3"
   }
 }
