@@ -3,7 +3,6 @@ const seedUsers = require("./seedUsers");
 const seedDogs = require("./seedDogs");
 const seedMeals = require("./seedMeals");
 
-
 const seedAll = async () => {
   try {
     await sequelize.sync({ force: true });
