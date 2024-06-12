@@ -1,7 +1,7 @@
 const sequelize = require("../config/connection");
+const seedUsers = require("./seedUsers");
 const seedDogs = require("./seedDogs");
 const seedMeals = require("./seedMeals");
-const seedUsers = require("./seedUsers");
 
 const seedAll = async () => {
   try {

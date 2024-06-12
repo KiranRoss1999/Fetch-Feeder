@@ -32,7 +32,7 @@ MealLog.init(
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: "mealLog",
+    modelName: "meal_log",
   }
 );
 
