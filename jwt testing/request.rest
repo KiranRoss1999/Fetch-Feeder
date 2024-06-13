@@ -1,0 +1,11 @@
+GET http://localhost:3000/posts
+authorize: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2lyYW4iLCJpYXQiOjE3MTgyNjg0MzN9.U4agUBJOr_TtEDvM-X0C9FIVRRW9C-UKUcB8xHoiF0E
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "Kiran"
+}
