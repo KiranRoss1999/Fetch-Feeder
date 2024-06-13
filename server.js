@@ -4,17 +4,36 @@ const path = require("path");
 const helpers = require("./utils/helpers");
 const routes = require("./controllers");
 
+
 //sequelize connection import
 const sequelize = require("./config/connection");
 
 //express handlerbars imports
 const exphbs = require("express-handlebars");
 
+// Importing express-session and connect-session-sequelize
+const session = require("express-session");
+const SequelizeStore = require("connect-session-sequelize")(session.Store);
+
 //initializing app
 const app = express();
 
 //initializing port
 const PORT = process.env.PORT || 8000;
+
+// Session configuration
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
+};
+
+// Use sessions
+app.use(session(sess));
 
 //creating the handle bar instance
 const hbs = exphbs.create({

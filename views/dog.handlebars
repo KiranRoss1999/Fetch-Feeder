@@ -1,0 +1,26 @@
+<!-- Hero Section -->
+<section class="bg-gray-100 py-16 text-center">
+  <div class="container mx-auto">
+    <h1 class="mb-4 text-4xl font-bold">Welcome to {{dog.name}} meals</h1>
+    <p class="mb-8 text-lg text-gray-700">Track your dog's diet and health
+      easily!</p>
+    <a
+      href="#"
+      class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
+    >Add a new meal</a>
+  </div>
+</section>
+
+{{!-- Meals Session --}}
+<section>
+  <div class="container mx-auto text-center">
+    <h2 class="mb-8 text-2xl font-bold">Your Dogs</h2>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
+      {{#each dog.meal_logs as |meal|}}
+      {{> meal-details}}
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+{{!-- <script src="/js/dashboard.js"></script> --}}

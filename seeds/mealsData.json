@@ -5,39 +5,39 @@
     "dog_id": 1
   },
   {
-    "food": "kibble",
+    "food": "snack",
     "calorie": 1100,
-    "dog_id": 1
-  },
-  {
-    "food": "kibble",
-    "calorie": 1200,
-    "dog_id": 1
-  },
-  {
-    "food": "kibble",
-    "calorie": 80,
     "dog_id": 2
+  },
+  {
+    "food": "salmon & sardine",
+    "calorie": 1200,
+    "dog_id": 3
+  },
+  {
+    "food": "Kangaroo & Lamb",
+    "calorie": 80,
+    "dog_id": 4
   },
   {
     "food": "snack",
     "calorie": 80,
-    "dog_id": 2
+    "dog_id": 5
   },
   {
     "food": "kibble",
     "calorie": 720,
-    "dog_id": 2
+    "dog_id": 6
   },
   {
-    "food": "kibble",
+    "food": "Aussie Beef",
     "calorie": 1100,
-    "dog_id": 3
+    "dog_id": 1
   },
   {
     "food": "treat",
     "calorie": 200,
-    "dog_id": 3
+    "dog_id": 2
   },
   {
     "food": "kibble",
@@ -47,6 +47,16 @@
   {
     "food": "snack",
     "calorie": 320,
-    "dog_id": 3
+    "dog_id": 4
+  },
+  {
+    "food": "kibble",
+    "calorie": 1200,
+    "dog_id": 5
+  },
+  {
+    "food": "snack",
+    "calorie": 1100,
+    "dog_id": 6
   }
 ]
