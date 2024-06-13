@@ -51,27 +51,33 @@
     <nav
       class="flex flex-wrap items-center justify-center text-base md:ml-auto"
     >
-      <a class="mr-5 hover:text-gray-900 cursor-pointer">Dashboard</a>
+      <a href="/dashboard" class="mr-5 hover:text-gray-900 cursor-pointer">Dashboard</a>
       <a class="mr-5 hover:text-gray-900 cursor-pointer">Dogs</a>
       <a class="mr-5 hover:text-gray-900 cursor-pointer">Log Meal</a>
       <a class="mr-5 hover:text-gray-900 cursor-pointer">Profile</a>
     </nav>
-    <a href="/login">
-      <button
-        class="mt-4 inline-flex items-center rounded border-0 bg-gray-100 px-3 py-1 text-base hover:bg-gray-200 focus:outline-none md:mt-0"
+    {{#if logged_in}}
+    <button id="logout" class="mt-4 inline-flex items-center rounded border-0 bg-gray-100 px-3 py-1 text-base hover:bg-gray-200 focus:outline-none md:mt-0"
+    >
+      Logout
+      <svg
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        class="ml-1 h-4 w-4"
+        viewBox="0 0 24 24"
       >
-        Login
-        <svg
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          class="ml-1 h-4 w-4"
-          viewBox="0 0 24 24"
-        >
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button></a>
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </button>
+      {{else}}
+    <a href="/login">Login</a>
+    {{/if}}
   </div>
 </header>
+
+{{#if logged_in}}
+<script src="/js/logout.js"></script>
+{{/if}}

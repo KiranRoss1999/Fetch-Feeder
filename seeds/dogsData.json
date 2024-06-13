@@ -16,5 +16,23 @@
     "weight": 42,
     "calorie_target": 1100,
     "user_id": 3
+  },
+  {
+    "name": "Bud",
+    "weight": 30,
+    "calorie_target": 900,
+    "user_id": 1
+  },
+  {
+    "name": "Lessy",
+    "weight": 15,
+    "calorie_target": 500,
+    "user_id": 2
+  },
+  {
+    "name": "Marley",
+    "weight": 60,
+    "calorie_target": 2000,
+    "user_id": 3
   }
 ]
