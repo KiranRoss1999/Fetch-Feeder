@@ -5,7 +5,7 @@ const weightLogData = require("./weightLogData.json");
 const weightLog = async () => {
   try {
     // await sequelize.sync({ force: true });
-    await MealLog.bulkCreate(weightLogData, {
+    await WeightLog.bulkCreate(weightLogData, {
       individualHooks: true,
       returning: true,
     });
