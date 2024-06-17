@@ -28,6 +28,13 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
+//render new-dog page form
+router.get('/new-dog', withAuth, (req, res) => {
+  res.render('new-dog', {
+    logged_in: req.session.logged_in,
+  });
+});
+
 // get all dogs for the logged in user
 router.get('/dashboard', withAuth, async (req, res) => {
   try {

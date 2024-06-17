@@ -6,13 +6,27 @@ const withAuth = require('../../utils/auth');
 
 // CREATE a NEW dog
 router.post('/', withAuth, async (req, res) => {
+
+  // Log the request body to debug the incoming data
+  console.log('Request Body:', req.body);
+
+  const { name, weight, calorie_target } = req.body;
+
+  // Validate the request data
+  if (!name || !weight || !calorie_target) {
+    return res.status(400).json({ message: 'Please provide name, weight, and calorie target for the dog.' });
+  }
+
   try {
     const newDog = await Dog.create({
-      ...req.body,
+      name,
+      weight,
+      calorie_target,
       user_id: req.session.user_id,
     });
     res.status(200).json(newDog);
   } catch (err) {
+    console.error("Error creating a new dog: ", err);
     res.status(400).json(err);
   }
 });
