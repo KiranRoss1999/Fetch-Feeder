@@ -1,11 +1,13 @@
 const router = require('express').Router();
 const { Dog, MealLog } = require('../../models');
 const withAuth = require('../../utils/auth');
+const authenticateToken = require('./jwt');
 
 // The `/api/dogs` endpoint
 
 // CREATE a NEW dog
-router.post('/', withAuth, async (req, res) => {
+
+router.post('/', withAuth, authenticateToken, async (req, res) => {
 
   // Log the request body to debug the incoming data
   console.log('Request Body:', req.body);
@@ -33,7 +35,7 @@ router.post('/', withAuth, async (req, res) => {
 
 
 // GET all dogs for the logged in user
-router.get('/', withAuth, async (req, res) => {
+router.get('/', withAuth, authenticateToken, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
       where: {

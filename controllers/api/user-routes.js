@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+/* const { authenticateToken } = require('./jwt'); */
+const jwt = require("jsonwebtoken");
 
 // create a new user
 router.post('/', async (req, res) => {
@@ -40,6 +42,18 @@ router.post('/login', async (req, res) => {
     
         const validPassword = await userData.checkPassword(req.body.password);
     
+        const accessToken = jwt.sign(
+
+            {
+              id: userData.id,
+            },
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+              expiresIn: '1h',
+            }
+    
+          );
+
         if (!validPassword) {
         res
             .status(400)
@@ -50,7 +64,7 @@ router.post('/login', async (req, res) => {
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.logged_in = true;
-            res.json({ user: userData, message: 'You are now logged in!' });
+            res.json({ user: userData, accessToken, message: 'You are now logged in!' });
         });
 
     } catch (err) {

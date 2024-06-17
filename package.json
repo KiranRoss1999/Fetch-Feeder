@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.18.0",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.11.3",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",

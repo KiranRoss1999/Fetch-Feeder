@@ -5,11 +5,11 @@ const jwt = require('jsonwebtoken');
 const app = express();
 app.use(express.json());
 
-// Dummy user
+/* // Dummy user
 const users = [
     { username: 'Kiran', password: 'password123' },
     { username: 'Test', password: 'test456' }
-];
+]; */
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
@@ -20,9 +20,9 @@ app.get('/posts', authenticateToken, (req, res) => {
         { username: 'Test', title: 'Post 2' }
     ];
 
-    /* const filteredPosts = posts.filter(post => post.username === req.user.username);
+    const filteredPosts = posts.filter(post => post.username === req.user.username);
     
-    res.json(filteredPosts); */
+    res.json(filteredPosts);
 });
 
 // Endpoint to authenticate and generate JWT token
@@ -66,3 +66,5 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+module.exports = authenticateToken;
