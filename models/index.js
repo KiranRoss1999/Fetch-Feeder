@@ -1,6 +1,7 @@
 const User = require("./User");
 const Dog = require("./Dog");
 const MealLog = require("./MealLog");
+const WeightLog = require("./weightLog")
 
 User.hasMany(Dog, {
   // as: 'dogs',
@@ -25,4 +26,13 @@ MealLog.belongsTo(Dog, {
   foreignKey: "dog_id",
 });
 
-module.exports = { User, Dog, MealLog };
+Dog.hasMany(WeightLog, {
+  foreignKey: "dog_id",
+});
+
+WeightLog.belongsTo(Dog, {
+  // as: 'dog',
+  foreignKey: "dog_id",
+});
+
+module.exports = { User, Dog, MealLog, WeightLog };

@@ -2,6 +2,7 @@ const sequelize = require("../config/connection");
 const seedUsers = require("./seedUsers");
 const seedDogs = require("./seedDogs");
 const seedMeals = require("./seedMeals");
+const seedWeightLog = require("./seedWeightLog")
 
 const seedAll = async () => {
   try {
@@ -9,6 +10,7 @@ const seedAll = async () => {
     await seedUsers();
     await seedDogs();
     await seedMeals();
+    await seedWeightLog();
     console.log("Database seeded successfully!");
   } catch (error) {
     console.error("Failed to seed database:", error);
