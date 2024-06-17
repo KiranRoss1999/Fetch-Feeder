@@ -2,9 +2,9 @@ const router = require("express").Router();
 const { Dog, MealLog, User } = require("../models");
 const withAuth = require("../utils/auth");
 
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
-    res.render('homepage', {
+    res.render("homepage", {
       logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -12,24 +12,31 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/login', (req, res) => {
+router.get("/login", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
     return;
   }
-  res.render('login');
+  res.render("login");
 });
 
-router.get('/signup', (req, res) => {
+router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect('/dashboard');
+    res.redirect("/dashboard");
     return;
   }
-  res.render('signup');
+  res.render("signup");
+});
+
+//render new-dog page form
+router.get('/new-dog', withAuth, (req, res) => {
+  res.render('new-dog', {
+    logged_in: req.session.logged_in,
+  });
 });
 
 // get all dogs for the logged in user
-router.get('/dashboard', withAuth, async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
       where: { user_id: req.session.user_id },
@@ -49,12 +56,12 @@ router.get('/dashboard', withAuth, async (req, res) => {
     const meals = mealData.map((meal) => meal.get({ plain: true }));
 
     const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password']},
+      attributes: { exclude: ["password"] },
     });
 
     const user = userData.get({ plain: true });
 
-    res.render('dashboard', {
+    res.render("dashboard", {
       dogs,
       meals,
       user,
@@ -66,16 +73,16 @@ router.get('/dashboard', withAuth, async (req, res) => {
 });
 
 //get one dog by id with meal logs
-router.get('/dog/:id', withAuth, async (req, res) => {
+router.get("/dog/:id", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findByPk(req.params.id, {
       include: [
         {
           model: MealLog,
           attributes: [
-            'id',
-            'food',
-            'calorie',
+            "id",
+            "food",
+            "calorie",
             // 'date_created',
           ],
         },
@@ -83,13 +90,13 @@ router.get('/dog/:id', withAuth, async (req, res) => {
     });
 
     if (!dogData) {
-      res.status(404).json({ message: 'No dog found with this id!' });
+      res.status(404).json({ message: "No dog found with this id!" });
       return;
     }
 
     const dog = dogData.get({ plain: true });
 
-    res.render('dog', {
+    res.render("dog", {
       dog,
       logged_in: req.session.logged_in,
     });
