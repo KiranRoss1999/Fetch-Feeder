@@ -30,7 +30,7 @@ WeightLog.init({
 },
 {
   sequelize,
-  modelName: 'weightLog',
+  modelName: 'weight_log',
   freezeTableName: true,
   underscored: true,
   timestamps: true, // Enable automatic timestamps
