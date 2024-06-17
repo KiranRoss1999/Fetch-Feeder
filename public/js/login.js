@@ -9,14 +9,18 @@ const loginFormHandler = async (event) => {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
-    });
-    if (response.ok) {
-      // If successful, redirect the browser to the dashboard page
-      document.location.replace('/dashboard');
-    } else {
-      alert(response.statusText);
-    }
-  }
+    }).then((response)=> response.json())
+  .then(data => {
+    console.log(data)
+      if (data) {
+        sessionStorage.setItem('accessToken', JSON.stringify(data.accessToken))
+     document.location.replace('/dashboard');
+  } else {
+    alert(response?.statusText);
+  } 
+  }).catch(error => console.log(error))
+}
+  
 };
 
 document

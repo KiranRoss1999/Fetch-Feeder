@@ -4,7 +4,8 @@ const logout = async () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     });
-
+    sessionStorage.removeItem('accessToken')
+    
     if (response.ok) {
         // If successfully logged out, redirect to the login page
         document.location.replace('/');

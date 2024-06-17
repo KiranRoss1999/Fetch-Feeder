@@ -10,12 +10,15 @@ const newDogFormHandler = async (event) => {
     const calorie_target = document.querySelector('#calorie_target').value.trim();
 
     console.log({ name, weight, calorie_target });
+    const accessToken = JSON.parse(sessionStorage.getItem('accessToken'))
     if (name && weight && calorie_target) {
         // Send a POST request to the API endpoint
         const response = await fetch('/api/dogs', {
             method: 'POST',
             body: JSON.stringify({ name, weight, calorie_target }),
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+               "authorization": `Bearer ${accessToken}`
+             },
         });
 
         console.log('Response:', response);
