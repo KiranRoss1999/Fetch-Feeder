@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const { Dog, MealLog, WeightLog } = require('../../models');
 const withAuth = require('../../utils/auth');
-const authenticateToken = require('./jwt');
+// const authenticateToken = require('./jwt');
 
 // The `/api/dogs` endpoint
 
 // CREATE a NEW dog
 
-router.post('/', withAuth, authenticateToken, async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
 
   // Log the request body to debug the incoming data
   console.log('Request Body:', req.body);
@@ -35,7 +35,7 @@ router.post('/', withAuth, authenticateToken, async (req, res) => {
 
 
 // GET all dogs for the logged in user
-router.get('/', withAuth, authenticateToken, async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
       where: {
@@ -48,60 +48,64 @@ router.get('/', withAuth, authenticateToken, async (req, res) => {
 });
 
 // GET one dog by id
-router.get('/:id', withAuth, authenticateToken, async (req, res) => {
-  try {
-    const dogData = await Dog.findByPk(req.params.id, {
-      include: [
-        {
-          model: MealLog,
-          attributes: [
-            'id',
-            'food',
-            'calories',
-            'date_created',
-          ],
-        },
-      ],
-    });
+// router.get('/:id', withAuth, async (req, res) => {
+//   try {
+//     const dogData = await Dog.findByPk(req.params.id, {
+//       where: { user_id: req.session.user_id},
+//       include: [
+//         {
+//           model: MealLog,
+//           attributes: [
+//             'id',
+//             'food',
+//             'calories',
+//             'date_created',
+//           ],
+//         },
+//       ],
+//     });
 
-    if (!dogData) {
+//     if (!dogData) {
+//       res.status(404).json({ message: 'No dog found with this id!' });
+//       return;
+//     }
+
+//     res.status(200).json(dogData);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
+
+
+
+// UPDATE dog information
+router.put('/:id', withAuth, async (req, res) => {
+  try {
+    const dog = await Dog.update(
+      {
+        name: req.body.name,
+        weight: req.body.weight,
+        calorie_target: req.body.calorie_target,
+      },
+      {
+        where: {
+          id: req.params.id,
+          user_id: req.session.user_id,
+        },
+      }
+    );
+
+    if (!dog[0]) {
       res.status(404).json({ message: 'No dog found with this id!' });
       return;
     }
 
-    res.status(200).json(dogData);
+    res.status(200).json({ message: 'Dog updated successfully.' });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// UPDATE a dog's weight and calorie_target
-router.put('/:id',  async (req, res) => {
-  try {
-    const dog = await Dog.findByPk(req.params.id);
-    if (!dog) {
-      res.status(404).json({ message: 'No dog found with this id!' });
-      return;
-    }
-    const { weight, calorie_target } = req.body;
-    const updates = {};
-    if (weight !== undefined && weight !== dog.weight) {
-      updates.weight = weight;
-      await WeightLog.create({
-        weight: weight,
-        dog_id: dog.id
-    })
-  }
-    if (calorie_target !== undefined) {
-      updates.calorie_target = calorie_target;
-    }
-    await dog.update(updates);
-    res.status(200).json(dog);
-  } catch (err) {
-    res.status(400).json(err);
-  }
-}
-);
 
 module.exports = router;
 

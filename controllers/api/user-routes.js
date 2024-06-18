@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../models');
-/* const { authenticateToken } = require('./jwt'); */
+const { authenticateToken } = require('./jwt');
 const jwt = require("jsonwebtoken");
 
 // create a new user
@@ -82,7 +82,8 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         res.status(500).json(err);
-      /*   console.log(500).json(err); */
+        console.error(err);
+
     }
 });
 
