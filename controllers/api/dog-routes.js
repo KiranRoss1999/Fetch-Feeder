@@ -6,12 +6,8 @@ const authenticateToken = require('./jwt');
 // The `/api/dogs` endpoint
 
 // CREATE a NEW dog
-
 router.post('/', withAuth, authenticateToken, async (req, res) => {
-
-  // Log the request body to debug the incoming data
   console.log('Request Body:', req.body);
-
   const { name, weight, calorie_target } = req.body;
 
   // Validate the request data
@@ -20,15 +16,22 @@ router.post('/', withAuth, authenticateToken, async (req, res) => {
   }
 
   try {
+    // Create a new dog entry
     const newDog = await Dog.create({
       name,
       weight,
       calorie_target,
       user_id: req.session.user_id,
     });
-    res.status(200).json(newDog);
+    // Create a new weight log entry linked to the new dog
+    const newWeightLog = await WeightLog.create({
+      weight,
+      dog_id: newDog.id,
+    });
+    // Respond with the new dog and weight log data
+    res.status(200).json({ newDog, newWeightLog });
   } catch (err) {
-    console.error("Error creating a new dog: ", err);
+    console.error("Error creating a new dog or weight log: ", err);
     res.status(400).json(err);
   }
 });
