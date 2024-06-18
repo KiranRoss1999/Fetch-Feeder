@@ -1,13 +1,13 @@
 const router = require('express').Router();
 const { Dog, MealLog, WeightLog } = require('../../models');
 const withAuth = require('../../utils/auth');
-// const authenticateToken = require('./jwt');
+const authenticateToken = require('./jwt');
 
 // The `/api/dogs` endpoint
 
 // CREATE a NEW dog
 
-router.post('/', withAuth, async (req, res) => {
+router.post('/', withAuth, authenticateToken, async (req, res) => {
 
   // Log the request body to debug the incoming data
   console.log('Request Body:', req.body);
@@ -35,7 +35,7 @@ router.post('/', withAuth, async (req, res) => {
 
 
 // GET all dogs for the logged in user
-router.get('/', withAuth, async (req, res) => {
+router.get('/', withAuth, authenticateToken, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
       where: {
@@ -48,35 +48,33 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 // GET one dog by id
-// router.get('/:id', withAuth, async (req, res) => {
-//   try {
-//     const dogData = await Dog.findByPk(req.params.id, {
-//       where: { user_id: req.session.user_id},
-//       include: [
-//         {
-//           model: MealLog,
-//           attributes: [
-//             'id',
-//             'food',
-//             'calories',
-//             'date_created',
-//           ],
-//         },
-//       ],
-//     });
+router.get('/:id', withAuth, authenticateToken, async (req, res) => {
+  try {
+    const dogData = await Dog.findByPk(req.params.id, {
+      where: { user_id: req.session.user_id},
+      include: [
+        {
+          model: MealLog,
+          attributes: [
+            'id',
+            'food',
+            'calories',
+            'date_created',
+          ],
+        },
+      ],
+    });
 
-//     if (!dogData) {
-//       res.status(404).json({ message: 'No dog found with this id!' });
-//       return;
-//     }
+    if (!dogData) {
+      res.status(404).json({ message: 'No dog found with this id!' });
+      return;
+    }
 
-//     res.status(200).json(dogData);
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
-
-
+    res.status(200).json(dogData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 // UPDATE dog information
 router.put('/:id', withAuth, async (req, res) => {
