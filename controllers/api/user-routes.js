@@ -13,10 +13,23 @@ router.post('/', async (req, res) => {
                 password: req.body.password,
             }
         );
+
+        const accessToken = jwt.sign(
+
+            {
+              id: userData.id,
+            },
+            process.env.ACCESS_TOKEN_SECRET,
+            {
+              expiresIn: '1h',
+            }
+    
+          );
+
         req.session.save(() => {
             req.session.user_id = newUser.id;
             req.session.logged_in = true;
-            res.status(200).json(newUser);
+            res.status(200).json(newUser, accessToken);
         });
     } catch (err) {
         console.error(err);
@@ -69,7 +82,7 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         res.status(500).json(err);
-        console.log(500).json(err);
+      /*   console.log(500).json(err); */
     }
 });
 
