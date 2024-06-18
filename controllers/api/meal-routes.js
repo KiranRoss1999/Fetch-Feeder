@@ -62,6 +62,7 @@ router.get("/:dog_id", withAuth, async (req, res) => {
     const mealData = await MealLog.findAll({
       where: {
         dog_id: req.params.dog_id,
+        user_id: req.session.user_id,
       },
     });
     res.status(200).json(mealData);
