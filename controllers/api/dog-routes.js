@@ -82,6 +82,7 @@ router.get('/:id', withAuth, authenticateToken, async (req, res) => {
 // UPDATE dog information
 router.put('/:id', withAuth, async (req, res) => {
   try {
+    const {weight} = req.body;
     const dog = await Dog.update(
       {
         name: req.body.name,
@@ -99,6 +100,14 @@ router.put('/:id', withAuth, async (req, res) => {
     if (!dog[0]) {
       res.status(404).json({ message: 'No dog found with this id!' });
       return;
+    }
+
+    // Create a new weight log entry if weight is provided in the request body
+    if (weight) {
+      await WeightLog.create({
+        weight,
+        dog_id: req.params.id,
+      });
     }
 
     res.status(200).json({ message: 'Dog updated successfully.' });
