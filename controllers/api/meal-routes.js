@@ -45,8 +45,7 @@ router.get("/", withAuth, async (req, res) => {
 router.post("/", withAuth, async (req, res) => {
   try {
     const newMeal = await MealLog.create({
-      food,
-      calories,
+      ...req.body,
       user_id: req.session.user_id,
     });
     res.status(200).json(newMeal);

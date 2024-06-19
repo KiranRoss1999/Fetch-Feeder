@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Dog, MealLog, User } = require("../models");
 const withAuth = require("../utils/auth");
 
+// render homepage
 router.get("/", async (req, res) => {
   try {
     res.render("homepage", {
@@ -12,6 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//render login page
 router.get("/login", (req, res) => {
   if (req.session.logged_in) {
     res.redirect("/dashboard");
@@ -20,6 +22,8 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+
+//redeem signup page
 router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
     res.redirect("/dashboard");
@@ -34,7 +38,6 @@ router.get('/new-dog', withAuth, (req, res) => {
     logged_in: req.session.logged_in,
   });
 });
-
 
 // render update-dog page form
 router.get('/update-dog/:id', withAuth, async (req, res) => {
@@ -57,7 +60,7 @@ router.get('/update-dog/:id', withAuth, async (req, res) => {
   }
 });
 
-// get all dogs for the logged in user
+// render all dogs for the logged in user
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
@@ -94,7 +97,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-//get one dog by id with meal logs
+//render one dog by id with meal logs
 router.get("/dog/:id", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findByPk(req.params.id, {
@@ -126,5 +129,28 @@ router.get("/dog/:id", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
+// render new meal page form
+router.get('/add-meal/:dog_id', withAuth, async (req, res) => {
+  try {
+    const dogData = await Dog.findByPk(req.params.dog_id);
+
+    if (!dogData) {
+      res.status(404).json({ message: 'No dog found with this id!' });
+      return;
+    }
+
+    const dog = dogData.get({ plain: true });
+
+    res.render('logMeal', {
+      dog,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 
 module.exports = router;
