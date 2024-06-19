@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { Dog, MealLog, User, WeightLog } = require("../models");
 const withAuth = require("../utils/auth");
 
+// render homepage
 router.get("/", async (req, res) => {
   try {
     res.render("homepage", {
@@ -12,6 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+//render login page
 router.get("/login", (req, res) => {
   if (req.session.logged_in) {
     res.redirect("/dashboard");
@@ -20,6 +22,8 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
+
+//redeem signup page
 router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
     res.redirect("/dashboard");
@@ -35,7 +39,28 @@ router.get('/new-dog', withAuth, (req, res) => {
   });
 });
 
-// get all dogs for the logged in user
+// render update-dog page form
+router.get('/update-dog/:id', withAuth, async (req, res) => {
+  try {
+    const dogData = await Dog.findByPk(req.params.id);
+
+    if (!dogData) {
+      res.status(404).json({ message: 'No dog found with this id!' });
+      return;
+    }
+
+    const dog = dogData.get({ plain: true });
+
+    res.render('update-dog', {
+      dog,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// render all dogs for the logged in user
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
@@ -72,10 +97,11 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-//get one dog by id with meal logs
+//render one dog by id with meal logs
 router.get("/dog/:id", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findByPk(req.params.id, {
+      // where: { user_id: req.session.user_id },
       include: [
         {
           model: MealLog,
@@ -83,7 +109,6 @@ router.get("/dog/:id", withAuth, async (req, res) => {
             "id",
             "food",
             "calorie",
-            // 'date_created',
           ],
         },
       ],
@@ -97,6 +122,27 @@ router.get("/dog/:id", withAuth, async (req, res) => {
     const dog = dogData.get({ plain: true });
 
     res.render("dog", {
+      dog,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// render new meal page form
+router.get('/add-meal/:dog_id', withAuth, async (req, res) => {
+  try {
+    const dogData = await Dog.findByPk(req.params.dog_id);
+
+    if (!dogData) {
+      res.status(404).json({ message: 'No dog found with this id!' });
+      return;
+    }
+
+    const dog = dogData.get({ plain: true });
+
+    res.render('logMeal', {
       dog,
       logged_in: req.session.logged_in,
     });
@@ -120,14 +166,11 @@ router.get("/dog/:id/weight", withAuth, async (req, res) => {
         },
       ],
     });
-
     if (!dogData) {
       res.status(404).json({ message: "No dog found with this id!" });
       return;
     }
-
     const dog = dogData.get({ plain: true });
-
     res.render("weight", {
       dog,
       logged_in: req.session.logged_in,
@@ -136,5 +179,7 @@ router.get("/dog/:id/weight", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
 
 module.exports = router;

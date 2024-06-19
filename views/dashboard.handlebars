@@ -7,7 +7,7 @@
     <a
       href="/new-dog"
       class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
-    >Add a new Dog</a>
+    >Add New Dog</a>
     
   </div>
 </section>
@@ -23,62 +23,3 @@
     </div>
   </div>
 </section>
-
-
-
-
-<!-- Dogs Section -->
-{{!-- <section class="m-3 bg-white py-16 px-2">
-  <div class="container mx-auto text-center">
-    <h2 class="mb-8 text-2xl font-bold">Key Features</h2>
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
-      {{#each dogs}}
-      <div class="rounded border border-gray-200 shadow-md p-6">
-        <h3 class="mb-4 text-xl font-bold">{{name}}</h3>
-        <p class="mb-4 text-lg text-gray-700">Weight: {{weight}}</p>
-        <p class="mb-4 text-lg text-gray-700">Calories Target: {{calorie_target}}</p>
-        <div class="container mx-auto text-center">
-          <button class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600" onclick="viewMeals('{{id}}')">View Meals</button>
-          <button class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600" onclick="addMeal('{{id}}')">Add Meal</button>
-        </div>
-        <div>
-              {{#each meals}}
-      <div class="meal-log">
-        <p>Meal: {{food}}</p>
-        <p>Calorie: {{calorie}}</p>
-      </div>
-    {{/each}}
-
-        </div>
-      </div>
-      {{/each}}
-    </div>
-  </div>
-</section>
-
-<div class="container mx-auto">
-  <h1 class="text-3xl font-bold mb-4">Dashboard</h1>
-  <div id="dogs-section">
-    <h2 class="text-2xl font-semibold mb-2">Your Dogs</h2>
-    {{#each dogs}}
-      <div class="dog-card">
-        <h3>{{name}}</h3>
-        <p>Weight: {{weight}}</p>
-        <p>Calories: {{calorie_target}}</p>
-        <button class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600" onclick="viewMeals('{{id}}')">View Meals</button>
-        <button class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600" onclick="addMeal('{{id}}')">Add Meal</button>
-      </div>
-    {{/each}}
-  </div>
-  <div id="meals-section" class="mt-4">
-    <h2 class="text-2xl font-semibold mb-2">Meal Logs</h2>
-    {{#each meals}}
-      <div class="meal-log">
-        <p>Meal: {{food}}</p>
-        <p>Calorie: {{calorie}}</p>
-      </div>
-    {{/each}}
-  </div>
-</div> --}}
-
-<script src="/js/dashboard.js"></script>

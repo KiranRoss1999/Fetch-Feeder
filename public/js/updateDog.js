@@ -1,21 +1,25 @@
-//function to listen and add a new dog to the database
+//function to listen and update an existing dog to the database
 
-const newDogFormHandler = async (event) => {
+const updateDogFormHandler = async (event) => {
     event.preventDefault();
-    // Collect values from the new dog form
     const name = document.querySelector('#name').value.trim();
     const weight = document.querySelector('#weight').value.trim();
     const calorie_target = document.querySelector('#calorie_target').value.trim();
 
-    console.log({ name, weight, calorie_target });
-    const accessToken = JSON.parse(sessionStorage.getItem('accessToken'))
+    // Get dog id from the form or URL
+    const dog_id = window.location.pathname.split('/').pop();
+
+    // Log the collected values
+    console.log({ name: name, weight: weight, calorie_target: calorie_target });
+
+    // const accessToken = JSON.parse(sessionStorage.getItem('accessToken'))
     if (name && weight && calorie_target) {
-        // Send a POST request to the API endpoint
-        const response = await fetch('/api/dogs', {
-            method: 'POST',
+        // Send a PUT request to the API endpoint
+        const response = await fetch(`/api/dogs/${dog_id}`, {
+            method: 'PUT',
             body: JSON.stringify({ name, weight, calorie_target }),
-            headers: { 'Content-Type': 'application/json',
-               "authorization": `Bearer ${accessToken}`
+            headers: { 'Content-Type': 'application/json'
+            //    "authorization": `Bearer ${accessToken}`
              },
         });
 
@@ -36,5 +40,5 @@ const newDogFormHandler = async (event) => {
 }
 
 document
-    .querySelector('#newDog-form')
-    .addEventListener('submit', newDogFormHandler);
+    .querySelector('#updateDog-form')
+    .addEventListener('submit', updateDogFormHandler);
