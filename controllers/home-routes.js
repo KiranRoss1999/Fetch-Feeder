@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Dog, MealLog, User } = require("../models");
+const { Dog, MealLog, User, WeightLog } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", async (req, res) => {
@@ -97,6 +97,38 @@ router.get("/dog/:id", withAuth, async (req, res) => {
     const dog = dogData.get({ plain: true });
 
     res.render("dog", {
+      dog,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get a dogs weight
+router.get("/dog/:id/weight", withAuth, async (req, res) => {
+  try {
+    const dogData = await Dog.findByPk(req.params.id, {
+      include: [
+        {
+          model: WeightLog,
+          attributes: [
+            'id',
+            'weight',
+            'created_at',
+          ],
+        },
+      ],
+    });
+
+    if (!dogData) {
+      res.status(404).json({ message: "No dog found with this id!" });
+      return;
+    }
+
+    const dog = dogData.get({ plain: true });
+
+    res.render("weight", {
       dog,
       logged_in: req.session.logged_in,
     });
