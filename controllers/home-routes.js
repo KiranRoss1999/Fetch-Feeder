@@ -123,7 +123,7 @@ router.get("/dog/:id", withAuth, async (req, res) => {
 
     res.render("dog", {
       dog,
-      // logged_in: req.session.logged_in,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);

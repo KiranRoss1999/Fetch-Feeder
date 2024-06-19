@@ -83,7 +83,7 @@ router.delete("/:id", withAuth, authenticateToken, async (req, res) => {
     const mealData = await MealLog.destroy({
       where: {
         id: req.params.id,
-        user_id: req.session.user_id,
+        //user_id: req.session.user_id,
       },
     });
 
@@ -94,6 +94,7 @@ router.delete("/:id", withAuth, authenticateToken, async (req, res) => {
 
     res.status(200).json({message: "Meal deleted successfully"});
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
