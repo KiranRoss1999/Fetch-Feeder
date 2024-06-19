@@ -1,20 +1,24 @@
 <div class="rounded border border-gray-200 shadow-md p-6 bg-white">
   <h3 class="mb-4 text-xl font-bold">{{name}}</h3>
-  <p class="mb-4 text-lg text-gray-700">Weight: {{weight}}</p>
-  <p class="mb-4 text-lg text-gray-700">Calories Target: {{calorie_target}}</p>
+  <p class="mb-4 text-lg text-gray-700">Weight: {{weight}} kg</p>
+  <p class="mb-4 text-lg text-gray-700">Daily Calorie Intake Target: {{calorie_target}} cal</p>
   <div class="container mx-auto text-center">
     <a href="/dog/{{id}}">
       <button
         class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
-      >View meals</button></a>
-        <a href="/update-dog/{{id}}">
+      >View meals</button>
+    </a>
+
+    <a href="/update-dog/{{id}}">
       <button
         class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
-      >Update Dog Info</button></a>
+      >Update Dog Info</button>
+    </a>
 
-    <button
-      class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
-      onclick="addMeal('{{id}}')"
-    >Add Meal</button>
+    <a href="/add-meal/{{id}}">
+      <button
+        class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
+      >Add Meal</button>
+    </a>
   </div>
 </div>

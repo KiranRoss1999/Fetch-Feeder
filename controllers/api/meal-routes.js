@@ -1,11 +1,13 @@
 const router = require("express").Router();
 const { MealLog, Dog, User } = require("../../models");
 const withAuth = require("../../utils/auth");
+const authenticateToken = require('./jwt');
+
 
 // The `/api/meals` endpoint
 //meal logs with user
 
-router.get("/", withAuth, async (req, res) => {
+router.get("/", withAuth, authenticateToken, async (req, res) => {
   try {
     const dogData = await Dog.findAll({
       where: { user_id: req.session.user_id },
@@ -42,7 +44,7 @@ router.get("/", withAuth, async (req, res) => {
 });
 
 // CREATE a NEW meal
-router.post("/", withAuth, async (req, res) => {
+router.post("/", withAuth, authenticateToken, async (req, res) => {
   try {
     const newMeal = await MealLog.create({
       ...req.body,
@@ -56,7 +58,7 @@ router.post("/", withAuth, async (req, res) => {
 
 
 // GET all meals logs for a specific dog
-router.get("/:dog_id", withAuth, async (req, res) => {
+router.get("/:dog_id", withAuth, authenticateToken, async (req, res) => {
   try {
     const mealData = await MealLog.findAll({
       where: {
@@ -65,6 +67,32 @@ router.get("/:dog_id", withAuth, async (req, res) => {
       },
     });
     res.status(200).json(mealData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+
+//Delete a meal log
+router.delete("/:id", withAuth, authenticateToken, async (req, res) => {
+
+  if (!req.params.id || !req.session.user_id) {
+    return res.status(400).json({ message: "Invalid request parameters" });
+  }
+  try {
+    const mealData = await MealLog.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!mealData) {
+      res.status(404).json({ message: "No meal found with this id!" });
+      return;
+    }
+
+    res.status(200).json({message: "Meal deleted successfully"});
   } catch (err) {
     res.status(500).json(err);
   }

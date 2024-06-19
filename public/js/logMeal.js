@@ -8,15 +8,15 @@ const logMealFormHandler = async (event) => {
   const calorie = document.querySelector('#calorie').value.trim();
 
   console.log({ food, calorie, dog_id });
-//   const accessToken = JSON.parse(sessionStorage.getItem('accessToken'))
+  const accessToken = JSON.parse(sessionStorage.getItem('accessToken'))
 
   if (food && calorie) {
       // Send a POST request to the API endpoint
       const response = await fetch('/api/meals', {
           method: 'POST',
           body: JSON.stringify({ food, calorie, dog_id }),
-          headers: { 'Content-Type': 'application/json'
-            //  "authorization": `Bearer ${accessToken}`
+          headers: { 'Content-Type': 'application/json',
+             "authorization": `Bearer ${accessToken}`
            },
       });
 
@@ -31,6 +31,7 @@ const logMealFormHandler = async (event) => {
       }
 
 }
+
 
 document
   .querySelector('#logMeal-form')
