@@ -4,7 +4,6 @@ const path = require("path");
 const helpers = require("./utils/helpers");
 const routes = require("./controllers");
 
-
 //sequelize connection import
 const sequelize = require("./config/connection");
 
@@ -23,7 +22,7 @@ const PORT = process.env.PORT || 8000;
 
 // Session configuration
 const sess = {
-  secret: 'Super secret secret',
+  secret: "Super secret secret",
   cookie: {},
   resave: false,
   saveUninitialized: true,
