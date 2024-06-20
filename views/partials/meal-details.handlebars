@@ -1,10 +1,14 @@
-<div class="rounded border border-gray-200 shadow-md p-6 bg-white" id="meal-{{id}}">
-  <h3 class="mb-4 text-xl font-bold capitalize">{{food}}</h3>
+<div
+  class="rounded border border-gray-200 shadow-md p-6 bg-white"
+  id="meal-{{id}}"
+>
+  <h3 class="mb-4 text-3xl font-bold capitalize uppercase">{{food}}</h3>
   {{!-- <p class="mb-4 text-lg text-gray-700">Meal Id: {{id}}</p> --}}
-  <p class="mb-4 text-lg text-gray-700">Calories: {{calorie}}</p>
-    <button
-      class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600 delete-meal-button"
-      data-id="{{id}}"
-    >Delete Meal
-    </button>
+  <p class="mb-4 text-lg text-gray-700"><span class="font-bold">Calories:</span>
+    {{calorie}}</p>
+  <button
+    class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600 delete-meal-button"
+    data-id="{{id}}"
+  >Delete Meal
+  </button>
 </div>

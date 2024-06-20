@@ -13,6 +13,44 @@ router.get("/", async (req, res) => {
   }
 });
 
+// profile page
+router.get("/profile", withAuth, async (req, res) => {
+  try {
+    // Fetch user's dogs with meal logs
+    const dogData = await Dog.findAll({
+      where: { user_id: req.session.user_id },
+      include: [{ model: MealLog }],
+    });
+
+    const mealData = await MealLog.findAll({
+      include: [
+        {
+          model: Dog,
+          where: { user_id: req.session.user_id },
+        },
+      ],
+    });
+
+    const userData = await User.findByPk(req.session.user_id, {
+      attributes: { exclude: ["password"] },
+    });
+
+    // Map the data to plain objects
+    const meals = mealData.map((meal) => meal.get({ plain: true }));
+    const user = userData.get({ plain: true });
+    const dogs = dogData.map((dog) => dog.get({ plain: true }));
+
+    res.render("profile", {
+      dogs,
+      user,
+      meals,
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 //render login page
 router.get("/login", (req, res) => {
   if (req.session.logged_in) {
@@ -21,7 +59,6 @@ router.get("/login", (req, res) => {
   }
   res.render("login");
 });
-
 
 //redeem signup page
 router.get("/signup", (req, res) => {
@@ -33,25 +70,25 @@ router.get("/signup", (req, res) => {
 });
 
 //render new-dog page form
-router.get('/new-dog', withAuth, (req, res) => {
-  res.render('new-dog', {
+router.get("/new-dog", withAuth, (req, res) => {
+  res.render("new-dog", {
     logged_in: req.session.logged_in,
   });
 });
 
 // render update-dog page form
-router.get('/update-dog/:id', withAuth, async (req, res) => {
+router.get("/update-dog/:id", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findByPk(req.params.id);
 
     if (!dogData) {
-      res.status(404).json({ message: 'No dog found with this id!' });
+      res.status(404).json({ message: "No dog found with this id!" });
       return;
     }
 
     const dog = dogData.get({ plain: true });
 
-    res.render('update-dog', {
+    res.render("update-dog", {
       dog,
       logged_in: req.session.logged_in,
     });
@@ -105,11 +142,7 @@ router.get("/dog/:id", withAuth, async (req, res) => {
       include: [
         {
           model: MealLog,
-          attributes: [
-            "id",
-            "food",
-            "calorie",
-          ],
+          attributes: ["id", "food", "calorie"],
         },
       ],
     });
@@ -131,18 +164,18 @@ router.get("/dog/:id", withAuth, async (req, res) => {
 });
 
 // render new meal page form
-router.get('/add-meal/:dog_id', withAuth, async (req, res) => {
+router.get("/add-meal/:dog_id", withAuth, async (req, res) => {
   try {
     const dogData = await Dog.findByPk(req.params.dog_id);
 
     if (!dogData) {
-      res.status(404).json({ message: 'No dog found with this id!' });
+      res.status(404).json({ message: "No dog found with this id!" });
       return;
     }
 
     const dog = dogData.get({ plain: true });
 
-    res.render('logMeal', {
+    res.render("logMeal", {
       dog,
       logged_in: req.session.logged_in,
     });
@@ -158,11 +191,7 @@ router.get("/dog/:id/weight", withAuth, async (req, res) => {
       include: [
         {
           model: WeightLog,
-          attributes: [
-            'id',
-            'weight',
-            'created_at',
-          ],
+          attributes: ["id", "weight", "created_at"],
         },
       ],
     });
@@ -179,7 +208,5 @@ router.get("/dog/:id/weight", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-
 
 module.exports = router;

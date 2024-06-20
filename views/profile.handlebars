@@ -1,0 +1,47 @@
+<!-- Profile Page -->
+<div class="container mx-auto p-4">
+  <h1 class="text-3xl font-bold mb-4">User Profile</h1>
+  <!-- User Information Section -->
+  <div class="mb-8 bg-blue-100 p-6 rounded-lg">
+    <h2 class="text-xl font-semibold mb-2">User Information</h2>
+    <p class="text-lg"><strong>Name:</strong> {{user.name}}</p>
+    <p class="text-lg"><strong>Email:</strong> {{user.email}}</p>
+    <p class="text-lg"><strong>Date Joined:</strong>
+      {{#if user.createdAt}}{{user.createdAt}}{{else}}N/A{{/if}}</p>
+  </div>
+
+  <!-- Dogs Information Section -->
+  <h2 class="text-2xl font-semibold mb-4">Dogs Information</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{#each dogs}}
+      <div class="border rounded-lg overflow-hidden shadow-md">
+        <div class="bg-gradient-to-b from-yellow-200 to-yellow-300 py-4 px-6">
+          <h3 class="text-xl font-semibold mb-2">{{this.name}}</h3>
+          <p class="text-lg"><strong>Weight:</strong> {{this.weight}} kgs</p>
+          <p class="text-lg"><strong>Calorie Target:</strong>
+            {{this.calorie_target}}
+            calories</p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  {{! Meal Information }}
+  <h2 class="text-2xl font-semibold my-4">Meals Information</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{#each meals}}
+      <div class="border rounded-lg overflow-hidden shadow-md">
+        <div class="bg-gradient-to-b from-green-200 to-green-300 py-4 px-6">
+          <h3 class="text-xl font-semibold mb-2 uppercase">{{this.food}}</h3>
+          <p class="text-lg"><strong>Calorie Target:</strong>
+            {{this.calorie}}
+            calories</p>
+          <p class="text-lg"><strong>Date Created:</strong>
+            {{format_date this.createdAt}}
+          </p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+</div>

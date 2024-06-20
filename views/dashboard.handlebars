@@ -1,24 +1,26 @@
 <!-- Hero Section -->
-<section class="bg-gray-100 py-16 text-center">
+<section class="bg-gray-200 py-16 text-center">
   <div class="container mx-auto">
-    <h1 class="mb-4 text-4xl font-bold">Welcome {{user.name}} to your Dashboard</h1>
+    <h1 class="mb-4 text-4xl font-bold">Hello
+      {{user.name}}, Welcome
+      to your Dashboard !!</h1>
     <p class="mb-8 text-lg text-gray-700">Track your dog's diet and health
       easily!</p>
     <a
       href="/new-dog"
       class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-600"
     >Add New Dog</a>
-    
+
   </div>
 </section>
 
-{{!-- Dog Session --}}
-<section>
-  <div class="container mx-auto text-center">
-    <h2 class="mb-8 text-2xl font-bold">Your Dogs</h2>
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
+{{! Dog Session }}
+<section class="py-16 text-center">
+  <div class="container mx-auto">
+    <h2 class="mb-8 text-5xl font-bold text-gray-800">Your Dogs</h2>
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
       {{#each dogs as |dog|}}
-      {{> dog-details}}
+       {{> dog-details}}
       {{/each}}
     </div>
   </div>
