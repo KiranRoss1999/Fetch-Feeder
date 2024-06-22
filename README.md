@@ -7,7 +7,7 @@ Fetch Feeder is an innovative app designed to help dog owners effortlessly track
 ## User Story
 AS A dog owner\
 I WANT to track my dog's diet, including meals, calories, and weight\
-SO THAT I can ensure their health and well-being with ease\
+SO THAT I can ensure their health and well-being with ease
 
 ## Project Requirements
 
@@ -24,14 +24,14 @@ Have a polished UI.\
 Be responsive.\
 Be interactive (in other words, accept and respond to user input).\
 Meet good-quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, and so on).\
-Have a professional README (with unique name, description, technologies used, screenshot, and link to deployed application).\
+Have a professional README (with unique name, description, technologies used, screenshot, and link to deployed application).
 
 ## Features
 
 Secure Data Management: Uses JWT token authentication to ensure your dog's health data is private and secure.\
 Comprehensive Health Monitoring: Track your dog's meals, calories, and weight with ease.\
 Personalised Profiles: Create and manage tailored profiles for each of your dogs.\
-Insightful Analytics: Gain valuable insights and trends about your dog's diet and health.\
+Insightful Analytics: Gain valuable insights and trends about your dog's diet and health.
 
 ## Technologies Used
 Frontend: Tailwind CSS for styling\
@@ -39,7 +39,7 @@ Backend: Node.js, Express.js\
 Database: PostgreSQL\
 Authentication: JWT (JSON Web Tokens)\
 Hosting: Render\
-Version Control: GitHub\
+Version Control: GitHub
 
 ## Screenshots of running application
 
@@ -56,4 +56,4 @@ https://fetch-feeder-1.onrender.com\
 
 ## How It Works
 Sign Up and Create a Profile: Register and create a personalised profile for your dog.\
-Log Meals and Track Weight: Enter your dog's meal details and regularly update their weight.\
+Log Meals and Track Weight: Enter your dog's meal details and regularly update their weight.
