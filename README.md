@@ -52,7 +52,7 @@ Version Control: GitHub
 ![fetch feeeder demo](./images/fetchfeeder4.PNG)
 
 ## Link to Deployed Application
-https://fetch-feeder-1.onrender.com\
+https://fetch-feeder-1.onrender.com
 
 ## How It Works
 Sign Up and Create a Profile: Register and create a personalised profile for your dog.\
